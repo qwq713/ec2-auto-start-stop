@@ -62,7 +62,7 @@ class SeoulOfficeHoursTagManager:
         """
 
         tgt_instance_ids = []
-        tgt_tag_filter = [{"Name": 'tag:'+self.TAG_KEY,
+        tgt_tag_filter = [{"Name": 'tag:' + self.TAG_KEY,
                            "Values": [self.TAG_VAL_EXCEPTION_DEFAULT]}]
 
         # Schedule 태그값이 EXCEPTION- 으로 시작하는 EC2 목록을 가져온다 by tgt_tag_filter
@@ -70,13 +70,13 @@ class SeoulOfficeHoursTagManager:
             Filters=tgt_tag_filter)
         next_token = reservations.get('NextToken', False)
         reservations = reservations.get('Reservations', [])
-        self.append_tgt_instances(tgt_instance_ids,reservations)
+        self.append_tgt_instances(tgt_instance_ids, reservations)
 
         while next_token:
-            reservations = self.ec2_client.describe_instances(Filters=tgt_tag_filter,NextToken = next_token)
+            reservations = self.ec2_client.describe_instances(Filters=tgt_tag_filter, NextToken=next_token)
             next_token = reservations.get('NextToken', False)
             reservations = reservations.get('Reservations', [])
-            self.append_tgt_instances(tgt_instance_ids,reservations)
+            self.append_tgt_instances(tgt_instance_ids, reservations)
         return tgt_instance_ids
 
     def start(self) -> Any:

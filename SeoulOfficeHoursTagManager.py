@@ -79,7 +79,7 @@ class SeoulOfficeHoursTagManager:
             self.append_tgt_instances(tgt_instance_ids, reservations)
         return tgt_instance_ids
 
-    def start(self) -> Any:
+    def start_tag_update(self) -> Any:
         """
         파워스케줄링 예외기간이 지난 인스턴스의 ID를 추출하여 다시 대상에 포함되도록 태그값을 업데이트한다.
         """
@@ -91,6 +91,6 @@ class SeoulOfficeHoursTagManager:
 
 def lambda_handler(event, context):
     seoul_office_hours_tag_mgr = SeoulOfficeHoursTagManager()
-    response = seoul_office_hours_tag_mgr.start()
+    response = seoul_office_hours_tag_mgr.start_tag_update()
     pprint(f"START DATE : {seoul_office_hours_tag_mgr.now_yyyymmdd}")
     pprint(f"{response}")
